@@ -29,7 +29,7 @@ public class MainApp extends Application {
         Scene myScene = new Scene(mainView);
         primaryStage.setScene(myScene);
         primaryStage.show();
-        mainController.loadDemonstration(new TestAnimation());
+        mainController.init();
 
     }
 }

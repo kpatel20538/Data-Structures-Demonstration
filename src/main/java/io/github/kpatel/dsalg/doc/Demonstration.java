@@ -15,4 +15,8 @@ public abstract class Demonstration {
     }
 
     public abstract Animation makeAnimation(Pane animationPane);
+
+    public String getName(){
+        return this.name;
+    }
 }
