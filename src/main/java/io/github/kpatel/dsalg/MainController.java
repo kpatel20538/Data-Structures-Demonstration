@@ -1,9 +1,7 @@
 package io.github.kpatel.dsalg;
 
 
-import io.github.kpatel.dsalg.doc.Demonstration;
-import io.github.kpatel.dsalg.doc.TestAnimation;
-import io.github.kpatel.dsalg.doc.TestAnimation2;
+import io.github.kpatel.dsalg.doc.*;
 import io.github.kpatel.dsalg.video.VideoController;
 import javafx.animation.Animation;
 import javafx.fxml.FXML;
@@ -23,7 +21,7 @@ public class MainController {
 
     public void loadDemonstration(Demonstration demonstration) {
         try{
-            documentView.setContent(FXMLLoader.load(getClass().getResource(demonstration.fxmlUrl)));
+            documentView.setContent(FXMLLoader.load(demonstration.getFxmlPath()));
             Pane animationPane = videoController.getAnimationPane();
             animationPane.getChildren().clear();
             Animation animation = demonstration.makeAnimation(animationPane);
@@ -34,31 +32,25 @@ public class MainController {
     }
 
     public void init(){
+        initTree();
+        loadDemonstration(new IntroductionDemonstration());
+    }
+
+    public void initTree(){
         tableOfContents.setCellFactory(demonstrationTreeView ->
-            new TreeCell<Demonstration>(){
-                @Override protected void updateItem(Demonstration demonstration, boolean empty) {
-                    super.updateItem(demonstration, empty);
-                    if (!empty && demonstration != null) {
-                        setText(demonstration.getName());
-                        //setGraphic(iconView);
-                        //iconView.setImage(pair.getKey().getImage());
-                    } else {
-                        setText(null);
-                        setGraphic(null);
+                new TreeCell<Demonstration>(){
+                    @Override protected void updateItem(Demonstration demonstration, boolean empty) {
+                        super.updateItem(demonstration, empty);
+                        if (!empty && demonstration != null) {
+                            setText(demonstration.getName());
+                            setOnMouseClicked(event -> loadDemonstration(demonstration));
+                        } else {
+                            setText(null);
+                            setOnMouseClicked(event -> {});
+                        }
                     }
-                    setOnMouseClicked(event -> loadDemonstration(demonstration));
                 }
-            }
         );
-
-        TreeItem<Demonstration> root = new TreeItem<>();
-        TreeItem<Demonstration> ta1 = new TreeItem<>(new TestAnimation());
-        TreeItem<Demonstration> ta2 = new TreeItem<>(new TestAnimation2());
-        root.getChildren().addAll(ta1,ta2);
-        tableOfContents.setRoot(root);
-
-
-        loadDemonstration(new TestAnimation());
-
+        tableOfContents.setRoot(new IntroductionDemonstration().getItem());
     }
 }

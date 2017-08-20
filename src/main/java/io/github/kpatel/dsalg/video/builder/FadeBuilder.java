@@ -2,7 +2,6 @@ package io.github.kpatel.dsalg.video.builder;
 
 
 import javafx.animation.FadeTransition;
-import javafx.animation.Transition;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;

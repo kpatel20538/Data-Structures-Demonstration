@@ -1,7 +1,6 @@
 package io.github.kpatel.dsalg.video;
 
 import javafx.animation.Animation;
-import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -103,7 +102,6 @@ public class VideoController {
         Duration total = getAnimation().getTotalDuration();
         this.totalTime.setText(toTimestamp(total));
         this.seekBar.setMax(total.toSeconds());
-        this.seekBar.setValue(0);
         setCuePoints();
         getAnimation().currentTimeProperty().addListener((observableValue, oldValue, newValue) -> {
             this.currentTime.setText(toTimestamp(newValue));
@@ -114,6 +112,7 @@ public class VideoController {
         this.seekBar.valueProperty().addListener((observableValue, oldValue, newValue) -> {
             getAnimation().jumpTo(Duration.seconds(newValue.doubleValue()));
         });
+        this.seekBar.setValue(0);
     }
 
     /** Convert Duration Object to String Timestamp */

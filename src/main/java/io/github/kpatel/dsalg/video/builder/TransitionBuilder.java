@@ -2,7 +2,6 @@ package io.github.kpatel.dsalg.video.builder;
 
 
 import javafx.animation.Transition;
-import javafx.animation.TranslateTransition;
 import javafx.scene.layout.Pane;
 
 public class TransitionBuilder {

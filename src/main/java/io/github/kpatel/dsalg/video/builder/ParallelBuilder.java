@@ -2,8 +2,6 @@ package io.github.kpatel.dsalg.video.builder;
 
 import javafx.animation.Animation;
 import javafx.animation.ParallelTransition;
-import javafx.animation.Transition;
-import javafx.animation.TranslateTransition;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
