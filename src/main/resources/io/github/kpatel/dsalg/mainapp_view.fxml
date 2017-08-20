@@ -26,8 +26,10 @@
       </VBox>
       <SplitPane dividerPositions="0.5" orientation="VERTICAL">
         <items>
-            <StackPane fx:id="videoView" />
-            <ScrollPane fx:id="documentView" />
+            <StackPane >
+                <fx:include fx:id="video" source="./video/video_view.fxml" />
+            </StackPane>
+            <ScrollPane fx:id="documentView" fitToWidth="true" hbarPolicy="NEVER" />
         </items>
       </SplitPane>
   </items>

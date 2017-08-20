@@ -1,10 +1,14 @@
 package io.github.kpatel.dsalg;
 
+import io.github.kpatel.dsalg.doc.TestAnimation;
 import io.github.kpatel.dsalg.video.VideoController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -21,14 +25,11 @@ public class MainApp extends Application {
         SplitPane mainView = mainLoader.load();
         MainController mainController = mainLoader.getController();
 
-        FXMLLoader videoLoader = new FXMLLoader(getClass().getResource("video/video_view.fxml"));
-        BorderPane videoView = videoLoader.load();
-        VideoController videoController = videoLoader.getController();
-        mainController.setVideo(videoView);
-
 
         Scene myScene = new Scene(mainView);
         primaryStage.setScene(myScene);
         primaryStage.show();
+        mainController.loadDemonstration(new TestAnimation());
+
     }
 }
