@@ -1,5 +1,6 @@
 package io.github.kpatel.dsalg.doc;
 
+import io.github.kpatel.dsalg.video.TranslateBuilder;
 import javafx.animation.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
@@ -11,21 +12,14 @@ public class TestAnimation extends Demonstration{
     }
 
     @Override
-    public Timeline makeAnimation(Pane animationPane) {
+    public Animation makeAnimation(Pane animationPane) {
         Circle circle = new Circle(50);
         animationPane.getChildren().add(circle);
-        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(5),circle);
-        translateTransition.fromXProperty().bind(animationPane.widthProperty().multiply(0.1));
-        translateTransition.fromYProperty().bind(animationPane.heightProperty().multiply(0.5));
-        translateTransition.toXProperty().bind(animationPane.widthProperty().multiply(0.9));
-        translateTransition.toYProperty().bind(animationPane.heightProperty().multiply(0.1));
-        return new Timeline(60,
-                new KeyFrame(Duration.ZERO,"Test 1",
-                        actionEvent -> translateTransition.play()
-                ),
-                new KeyFrame(Duration.seconds(5),"Test 2"
-
-                )
-        );
+        return new TranslateBuilder(animationPane)
+                .setNode(circle)
+                .setDuration(Duration.seconds(5))
+                .moveFrom(0.1,0.5)
+                .moveTo(0.9,0.1)
+                .build();
     }
 }

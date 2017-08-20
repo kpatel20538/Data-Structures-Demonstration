@@ -1,5 +1,6 @@
 package io.github.kpatel.dsalg.doc;
 
+import javafx.animation.Animation;
 import javafx.animation.Timeline;
 import javafx.scene.layout.Pane;
 
@@ -13,5 +14,5 @@ public abstract class Demonstration {
         this.name = name;
     }
 
-    public abstract Timeline makeAnimation(Pane animationPane);
+    public abstract Animation makeAnimation(Pane animationPane);
 }

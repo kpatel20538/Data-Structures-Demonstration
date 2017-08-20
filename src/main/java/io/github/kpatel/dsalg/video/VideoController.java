@@ -1,6 +1,6 @@
 package io.github.kpatel.dsalg.video;
 
-import javafx.animation.Timeline;
+import javafx.animation.Animation;
 import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,63 +18,63 @@ public class VideoController {
     @FXML private Label currentTime;
     @FXML private Label totalTime;
     @FXML private Slider seekBar;
-    private Timeline timeline;
+    private Animation animation;
     private TreeMap<Duration,String> cuePoints = new TreeMap<>();
 
-    /** Toggle Play Pause state for the underlying Timeline Object */
+    /** Toggle Play Pause state for the underlying Animation Object */
     @FXML protected void playPause(ActionEvent event){
-        switch (getTimeline().getStatus()){
+        switch (getAnimation().getStatus()){
             case PAUSED:
-                getTimeline().play();
+                getAnimation().play();
                 break;
             case RUNNING:
-                getTimeline().pause();
+                getAnimation().pause();
                 break;
             case STOPPED:
-                getTimeline().playFromStart();
+                getAnimation().playFromStart();
                 break;
         }
     }
 
-    /** Seek ahead by 30 seconds in the Timeline Object */
+    /** Seek ahead by 30 seconds in the Animation Object */
     @FXML protected void seekForward(ActionEvent event){
-        Duration currentTime = getTimeline().getCurrentTime();
-        Duration totalTime = getTimeline().getTotalDuration();
+        Duration currentTime = getAnimation().getCurrentTime();
+        Duration totalTime = getAnimation().getTotalDuration();
         Duration shiftedTime = currentTime.add(Duration.seconds(30));
         Duration jumpTime = shiftedTime.compareTo(totalTime) == -1 ? shiftedTime:totalTime;
-        getTimeline().jumpTo(jumpTime);
+        getAnimation().jumpTo(jumpTime);
     }
 
-    /** Seek behind by 30 seconds in the Timeline Object */
+    /** Seek behind by 30 seconds in the Animation Object */
     @FXML protected void seekReverse(ActionEvent event){
-        Duration currentTime = getTimeline().getCurrentTime();
+        Duration currentTime = getAnimation().getCurrentTime();
         Duration shiftedTime = currentTime.subtract(Duration.seconds(30));
         Duration jumpTime = shiftedTime.compareTo(Duration.ZERO) == 1 ? shiftedTime:Duration.ZERO;
-        getTimeline().jumpTo(jumpTime);
+        getAnimation().jumpTo(jumpTime);
     }
 
     /** Skip to the next Cue Point */
     @FXML protected void seekNextCuePoint(ActionEvent event){
-        Duration currentTime = getTimeline().getCurrentTime();
+        Duration currentTime = getAnimation().getCurrentTime();
         Duration shiftedTime = this.cuePoints.higherKey(currentTime);
-        getTimeline().jumpTo(shiftedTime);
+        getAnimation().jumpTo(shiftedTime);
     }
 
     /** Skip to the previous Cue Point */
     @FXML protected void seekPrevCuePoint(ActionEvent event){
-        Duration currentTime = getTimeline().getCurrentTime();
+        Duration currentTime = getAnimation().getCurrentTime();
         Duration shiftedTime = this.cuePoints.lowerKey(currentTime);
-        getTimeline().jumpTo(shiftedTime);
+        getAnimation().jumpTo(shiftedTime);
     }
 
-    /** Access : Timeline Object */
-    public Timeline getTimeline() {
-        return timeline;
+    /** Access : Animation Object */
+    public Animation getAnimation() {
+        return animation;
     }
 
-    /** Mutate and Bind : Timeline Object */
-    public void setTimeline(Timeline timeline) {
-        this.timeline = timeline;
+    /** Mutate and Bind : Animation Object */
+    public void setAnimation(Animation animation) {
+        this.animation = animation;
         updateBinding();
     }
 
@@ -84,11 +84,13 @@ public class VideoController {
     }
 
     /** Mutate : Cuepoint Map Object */
-    public void setCuePoints(ObservableMap<String,Duration> cuepoints) {
+    public void setCuePoints() {
         this.cuePoints.clear();
-        for(Map.Entry<String,Duration> entry: getTimeline().getCuePoints().entrySet()){
+        for(Map.Entry<String,Duration> entry: getAnimation().getCuePoints().entrySet()){
             this.cuePoints.put(entry.getValue(),entry.getKey());
         }
+        this.cuePoints.put(Duration.ZERO,"---");
+        this.cuePoints.put(getAnimation().getTotalDuration(),"---");
     }
 
     /** Access: Animation Pane */
@@ -98,19 +100,19 @@ public class VideoController {
 
     /** Update bindings */
     private void updateBinding(){
-        Duration total = getTimeline().getTotalDuration();
+        Duration total = getAnimation().getTotalDuration();
         this.totalTime.setText(toTimestamp(total));
         this.seekBar.setMax(total.toSeconds());
         this.seekBar.setValue(0);
-        setCuePoints(getTimeline().getCuePoints());
-        getTimeline().currentTimeProperty().addListener((observableValue, oldValue, newValue) -> {
+        setCuePoints();
+        getAnimation().currentTimeProperty().addListener((observableValue, oldValue, newValue) -> {
             this.currentTime.setText(toTimestamp(newValue));
             this.cuePointName.setText(getCuePoints().lowerEntry(newValue).getValue());
             if (!this.seekBar.isValueChanging())
                 this.seekBar.setValue(newValue.toSeconds());
         });
         this.seekBar.valueProperty().addListener((observableValue, oldValue, newValue) -> {
-            getTimeline().jumpTo(Duration.seconds(newValue.doubleValue()));
+            getAnimation().jumpTo(Duration.seconds(newValue.doubleValue()));
         });
     }
 
