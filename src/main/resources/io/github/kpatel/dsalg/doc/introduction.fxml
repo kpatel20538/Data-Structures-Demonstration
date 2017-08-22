@@ -1,38 +1,88 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
+<?xml version='1.0' encoding='UTF-8'?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
-<GridPane hgap="10.0" vgap="10.0" xmlns="http://javafx.com/javafx/8.0.112">
-   <columnConstraints>
-      <ColumnConstraints />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-   </rowConstraints>
-   <children>
-      <Label text="Lorem Ipsum" GridPane.columnSpan="2">
-         <font>
-            <Font name="System Bold Italic" size="24.0" />
-         </font>
-      </Label>
-      <Label text="          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque aliquam magna id lorem imperdiet, non accumsan mi volutpat. Integer et scelerisque nunc. Nunc scelerisque rhoncus turpis, ac ullamcorper justo. Phasellus vulputate nec nisi ac vestibulum. Mauris pretium, sem eget rhoncus iaculis, quam urna tristique enim, id rutrum elit libero eget odio. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque tincidunt augue ipsum, quis eleifend elit facilisis eget. Donec volutpat lectus sed augue rhoncus facilisis. Maecenas dapibus, justo id fringilla pretium, erat ante molestie enim, vitae posuere nulla urna a nunc. Pellentesque nulla orci, commodo vitae orci quis, ullamcorper eleifend nisl. Donec cursus eget urna rutrum malesuada. Donec vitae imperdiet dui, vitae faucibus massa. Aenean venenatis diam suscipit facilisis feugiat." wrapText="true" GridPane.rowIndex="1" />
-      <Label text="          Praesent convallis ipsum nunc, eu ornare tortor faucibus eu. Sed odio magna, faucibus in egestas auctor, viverra et velit. Mauris eget erat maximus, vestibulum magna non, interdum metus. Maecenas efficitur maximus quam ut fringilla. Suspendisse venenatis lacus quis purus tincidunt vulputate. Curabitur blandit dapibus ultrices. Duis vel turpis lacinia mauris hendrerit elementum." wrapText="true" GridPane.rowIndex="2" />
-      <Label text="          Phasellus ac nisi vitae urna mollis vehicula. Ut finibus dolor sapien, id iaculis elit congue at. Donec molestie vulputate felis, sed faucibus nisi. Duis iaculis, diam et egestas faucibus, quam arcu imperdiet justo, pretium dictum lorem dolor et lorem. Proin nec suscipit neque. Pellentesque tempus interdum sagittis. Sed nec consectetur lectus, nec eleifend neque. Maecenas volutpat porttitor nisl nec mattis. Nam feugiat iaculis arcu, et suscipit diam cursus ac. Duis vitae posuere ipsum, sit amet consequat nunc." wrapText="true" GridPane.rowIndex="3" />
-      <Label text="          Sed elementum arcu ut cursus gravida. Duis semper convallis fringilla. Donec elit diam, finibus sit amet tristique vel, imperdiet eget risus. Phasellus a tempus tellus. Vivamus ac commodo tellus, quis tincidunt nisl. Nulla maximus fringilla nisi nec venenatis. Phasellus sollicitudin egestas ligula, quis condimentum augue tristique tristique. Aenean aliquet, dolor at maximus maximus, augue turpis ullamcorper purus, non tempor quam massa ullamcorper nisi. Duis mattis facilisis lectus, in convallis magna euismod at. Nam vel dui vel risus ultrices pretium rutrum id quam. In volutpat lectus vitae libero ultrices dapibus. Pellentesque vehicula eu erat ut interdum. Nulla non est a tortor ullamcorper feugiat. Ut vitae enim ex. Phasellus ex ex, lacinia a enim ut, viverra tristique justo. Nullam vitae pretium massa." wrapText="true" GridPane.rowIndex="4" />
-      <Label text="          Vestibulum in aliquam urna. Etiam ante eros, gravida a ultricies quis, fermentum eget lectus. Aenean enim ex, pharetra et pretium in, tristique sit amet odio. Curabitur sagittis condimentum feugiat. Phasellus dictum ante ex, ullamcorper vulputate ipsum auctor eget. Duis tristique lacus ac nunc blandit, in dictum odio ultrices. Nam varius sit amet libero tempus placerat." wrapText="true" GridPane.rowIndex="5" />
-   </children>
-   <padding>
-      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-   </padding>
-</GridPane>
+<TabPane>
+   <tabs>
+      <Tab closable="false" text="Title">
+         <content>
+            <ScrollPane fitToWidth="true">
+               <content>
+                  <VBox spacing="10.0">
+                     <children>
+                        <Label wrapText="true" text="Header">
+                           <font>
+                              <Font size="24.0" name="System Bold Italic"/>
+                           </font>
+                        </Label>
+                        <Label style="-fx-border-color: black; -fx-background-color: white; -fx-padding: 10px;" text="Code Block&#10;Help&#10;  LoopHat&#10;      Dance">
+                           <font>
+                              <Font size="13.0" name="Liberation Mono"/>
+                           </font>
+                        </Label>
+                        <ImageView fitWidth="300.0" pickOnBounds="true" fitHeight="200.0" preserveRatio="true">
+                           <image>
+                              <Image url="https://i.ytimg.com/vi/PnW5IRvgvLY/hqdefault.jpg?sqp=-oaymwEWCKgBEF5IWvKriqkDCQgBFQAAiEIYAQ==&amp;rs=AOn4CLAs1TL2TQooiKg6sPuAJX_Jk6Z01w"/>
+                           </image>
+                        </ImageView>
+                        <Label wrapText="true" style="-fx-padding: 10px; -fx-border-radius: 10px; -fx-border-color: grey;" text="Quack Quack, Imma Goose">
+                           <font>
+                              <Font size="13.0" name="System Italic"/>
+                           </font>
+                        </Label>
+                        <Separator prefWidth="200.0"/>
+                        <Label wrapText="true" text="          Paragraph"/>
+                     </children>
+                     <opaqueInsets>
+                        <Insets/>
+                     </opaqueInsets>
+                     <padding>
+                        <Insets top="10.0" bottom="10.0" left="10.0" right="10.0"/>
+                     </padding>
+                  </VBox>
+               </content>
+            </ScrollPane>
+         </content>
+      </Tab>
+      <Tab closable="false" text="Introduction">
+         <content>
+            <ScrollPane fitToWidth="true">
+               <content>
+                  <VBox spacing="10.0">
+                     <children>
+                        <Label wrapText="true" text="Picolo">
+                           <font>
+                              <Font size="24.0" name="System Bold Italic"/>
+                           </font>
+                        </Label>
+                        <Label wrapText="true" text="          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis a consequat turpis. Sed at tortor sed massa consequat iaculis a et magna. Nam laoreet justo diam, eu vulputate nibh lacinia convallis. Aenean non bibendum mi. Morbi rutrum volutpat augue vel bibendum. Curabitur posuere ipsum in odio cursus eleifend. Vivamus eget cursus nisi. Sed lectus nisi, sodales facilisis augue a, feugiat accumsan risus. Integer faucibus arcu in tellus aliquam, sed bibendum risus suscipit."/>
+                        <Label wrapText="true" text="          Vestibulum fermentum nibh dolor, imperdiet vulputate sem tempor sit amet. Suspendisse efficitur nisl odio, a facilisis orci tempor et. Nullam at blandit ligula. In ac nisi varius, maximus massa id, dictum sem. Sed varius mollis tortor quis efficitur. Integer porta ex vel ante tempus posuere. Duis fermentum risus ac nisl aliquet lacinia."/>
+                        <Label wrapText="true" text="Picolo Amadues Mozart the Crazed Madman">
+                           <font>
+                              <Font size="24.0" name="System Bold Italic"/>
+                           </font>
+                        </Label>
+                        <Label wrapText="true" text="          Phasellus porta elit non mi molestie, et fermentum lacus vulputate. Nullam mattis posuere ligula sed egestas. Vestibulum vel tellus vel augue tempor pretium. Nullam id tincidunt nunc, at tempor purus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc cursus porta vulputate. Mauris nec metus sit amet lorem dignissim tempus. Nam vel est quis libero euismod auctor. Aliquam dignissim id arcu in tempus. Cras justo dolor, aliquet at feugiat ut, ultricies in mauris. Nunc convallis posuere vestibulum. Sed id orci accumsan, tristique ipsum vitae, mattis felis. Cras gravida orci lacus, sed ornare elit commodo et. Donec a tincidunt odio, vel iaculis ex."/>
+                        <Label wrapText="true" text="          Maecenas ut iaculis lacus. Fusce sit amet viverra dolor. Suspendisse mattis vestibulum sem feugiat sodales. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce diam tortor, egestas vitae magna in, pellentesque hendrerit eros. Vestibulum finibus tortor in vestibulum porta. Nulla ut euismod ex. Morbi euismod justo non magna suscipit, sed pharetra justo venenatis. Curabitur mollis imperdiet leo, scelerisque molestie mi."/>
+                        <Label wrapText="true" text="          Mauris sodales bibendum finibus. Nulla pretium varius ex nec hendrerit. Sed felis neque, lobortis vel porttitor viverra, dictum nec lectus. In rutrum egestas ante, a pellentesque purus tincidunt non. Curabitur quis faucibus elit, quis sollicitudin nunc. Mauris id augue at dui faucibus viverra. Duis accumsan nunc ac metus tincidunt iaculis. Mauris eget lectus eget odio egestas rhoncus a a erat."/>
+                     </children>
+                     <opaqueInsets>
+                        <Insets/>
+                     </opaqueInsets>
+                     <padding>
+                        <Insets top="10.0" bottom="10.0" left="10.0" right="10.0"/>
+                     </padding>
+                  </VBox>
+               </content>
+            </ScrollPane>
+         </content>
+      </Tab>
+   </tabs>
+</TabPane>

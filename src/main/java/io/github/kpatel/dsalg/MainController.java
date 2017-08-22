@@ -8,20 +8,20 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TreeCell;
-import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
 
 public class MainController {
     @FXML private TreeView<Demonstration> tableOfContents;
-    @FXML private ScrollPane documentView;
+    @FXML private StackPane documentView;
     @FXML private VideoController videoController;
 
     public void loadDemonstration(Demonstration demonstration) {
         try{
-            documentView.setContent(FXMLLoader.load(demonstration.getFxmlPath()));
+            documentView.getChildren().add(FXMLLoader.load(demonstration.getFxmlPath()));
             Pane animationPane = videoController.getAnimationPane();
             animationPane.getChildren().clear();
             Animation animation = demonstration.makeAnimation(animationPane);
@@ -32,25 +32,27 @@ public class MainController {
     }
 
     public void init(){
-        initTree();
-        loadDemonstration(new IntroductionDemonstration());
+        loadDemonstration(createTableOfContents());
     }
 
-    public void initTree(){
+    public Demonstration createTableOfContents(){
+        // Setup Tree Cell's Text and onClick Handler
         tableOfContents.setCellFactory(demonstrationTreeView ->
                 new TreeCell<Demonstration>(){
                     @Override protected void updateItem(Demonstration demonstration, boolean empty) {
                         super.updateItem(demonstration, empty);
-                        if (!empty && demonstration != null) {
-                            setText(demonstration.getName());
-                            setOnMouseClicked(event -> loadDemonstration(demonstration));
-                        } else {
-                            setText(null);
-                            setOnMouseClicked(event -> {});
-                        }
+                        boolean isValid = !empty && demonstration != null;
+                        setText(isValid ? demonstration.getName():null);
+                        setOnMouseClicked(isValid ?
+                                (event -> loadDemonstration(demonstration)) :
+                                (event -> {})
+                        );
                     }
                 }
         );
-        tableOfContents.setRoot(new IntroductionDemonstration().getItem());
+        // Load Demonstrations to TreeView
+        IntroductionDemonstration root = new IntroductionDemonstration();
+        tableOfContents.setRoot(root.getItem());
+        return root;
     }
 }

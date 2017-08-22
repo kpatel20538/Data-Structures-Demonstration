@@ -13,11 +13,6 @@ public class AbstractDataTypeDemonstration extends Demonstration{
     }
 
     @Override
-    public Animation makeAnimation(Pane animationPane) {
-        return new Timeline();
-    }
-
-    @Override
     public TreeItem<Demonstration> getItem() {
         TreeItem<Demonstration> root = super.getItem();
         root.getChildren().addAll(
@@ -33,5 +28,10 @@ public class AbstractDataTypeDemonstration extends Demonstration{
                 new WeightedGraphDemonstration().getItem()
         );
         return root;
+    }
+
+    @Override
+    public Animation makeAnimation(Pane animationPane) {
+        return new Timeline();
     }
 }

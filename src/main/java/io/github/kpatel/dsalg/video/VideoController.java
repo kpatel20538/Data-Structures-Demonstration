@@ -37,17 +37,15 @@ public class VideoController {
 
     /** Seek ahead by 30 seconds in the Animation Object */
     @FXML protected void seekForward(ActionEvent event){
-        Duration currentTime = getAnimation().getCurrentTime();
         Duration totalTime = getAnimation().getTotalDuration();
-        Duration shiftedTime = currentTime.add(Duration.seconds(30));
+        Duration shiftedTime = getAnimation().getCurrentTime().add(Duration.seconds(30));
         Duration jumpTime = shiftedTime.compareTo(totalTime) == -1 ? shiftedTime:totalTime;
         getAnimation().jumpTo(jumpTime);
     }
 
     /** Seek behind by 30 seconds in the Animation Object */
     @FXML protected void seekReverse(ActionEvent event){
-        Duration currentTime = getAnimation().getCurrentTime();
-        Duration shiftedTime = currentTime.subtract(Duration.seconds(30));
+        Duration shiftedTime = getAnimation().getCurrentTime().subtract(Duration.seconds(30));
         Duration jumpTime = shiftedTime.compareTo(Duration.ZERO) == 1 ? shiftedTime:Duration.ZERO;
         getAnimation().jumpTo(jumpTime);
     }
@@ -99,20 +97,25 @@ public class VideoController {
 
     /** Update bindings */
     private void updateBinding(){
+        // Updating total duration
         Duration total = getAnimation().getTotalDuration();
         this.totalTime.setText(toTimestamp(total));
         this.seekBar.setMax(total.toSeconds());
+
+        // Update Cue points and Current Time
         setCuePoints();
         getAnimation().currentTimeProperty().addListener((observableValue, oldValue, newValue) -> {
-            this.currentTime.setText(toTimestamp(newValue));
             this.cuePointName.setText(getCuePoints().lowerEntry(newValue).getValue());
+            this.currentTime.setText(toTimestamp(newValue));
             if (!this.seekBar.isValueChanging())
                 this.seekBar.setValue(newValue.toSeconds());
         });
         this.seekBar.valueProperty().addListener((observableValue, oldValue, newValue) -> {
             getAnimation().jumpTo(Duration.seconds(newValue.doubleValue()));
         });
-        this.seekBar.setValue(0);
+
+        // Set time to Zero
+        getAnimation().jumpTo(Duration.ZERO);
     }
 
     /** Convert Duration Object to String Timestamp */
