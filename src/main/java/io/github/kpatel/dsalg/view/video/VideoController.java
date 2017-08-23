@@ -1,7 +1,8 @@
 package io.github.kpatel.dsalg.view.video;
 
 import javafx.animation.Animation;
-import javafx.beans.property.ObjectProperty;
+import javafx.animation.Timeline;
+import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -25,9 +26,17 @@ public class VideoController {
     private Label totalTime;
     @FXML
     private Slider seekBar;
-    private Animation animation;
+    private Animation animation = new Timeline();
     private TreeMap<Duration, String> cuePoints = new TreeMap<>();
 
+    private ChangeListener<Duration> adjustControls = (observableValue, oldValue, newValue) -> {
+        this.cuePointName.setText(getPrevCuePoint(newValue).getValue());
+        this.currentTime.setText(toTimestamp(newValue));
+        if (!this.seekBar.isValueChanging())
+            this.seekBar.setValue(newValue.toSeconds());
+    };;
+    private ChangeListener<Number> adjustTimeline = (observableValue, oldValue, newValue) ->
+            getAnimation().jumpTo(Duration.seconds(newValue.doubleValue()));
     /**
      * Toggle Play Pause state for the underlying Animation Object
      */
@@ -96,8 +105,30 @@ public class VideoController {
      * Mutate and Bind : Animation Object
      */
     public void setAnimation(Animation animation) {
+        // Unbind and Rebind Step
+
+        this.animation.currentTimeProperty().removeListener(this.adjustControls);
+        animation.currentTimeProperty().addListener(this.adjustControls);
+
+        this.seekBar.valueProperty().removeListener(this.adjustTimeline);
+        this.seekBar.valueProperty().addListener(this.adjustTimeline);
+
+        // Value Setting
+        Duration totalDuration = animation.getTotalDuration();
+        this.totalTime.setText(toTimestamp(totalDuration));
+        this.seekBar.setMax(totalDuration.toSeconds());
+
+        // Establishing Cue Points
+        this.cuePoints.clear();
+        for (Map.Entry<String, Duration> entry : animation.getCuePoints().entrySet()) {
+            this.cuePoints.put(entry.getValue(), entry.getKey());
+        }
+        this.cuePoints.putIfAbsent(Duration.ZERO, "---");
+        this.cuePoints.putIfAbsent(totalDuration, "---");
+
+        // Clean Up
+        this.seekBar.setValue(0);
         this.animation = animation;
-        updateBinding();
     }
 
     /**
@@ -107,18 +138,6 @@ public class VideoController {
         return cuePoints;
     }
 
-    /**
-     * Mutate : Cuepoint Map Object
-     */
-    public void setCuePoints() {
-        this.cuePoints.clear();
-
-        for (Map.Entry<String, Duration> entry : getAnimation().getCuePoints().entrySet()) {
-            this.cuePoints.put(entry.getValue(), entry.getKey());
-        }
-        this.cuePoints.put(Duration.ZERO, "---");
-        this.cuePoints.put(getAnimation().getTotalDuration(), "---");
-    }
 
     /**
      * Access: Animation Pane
@@ -132,25 +151,7 @@ public class VideoController {
      */
     private void updateBinding() {
         // Updating total duration
-        Duration total = getAnimation().getTotalDuration();
-        this.totalTime.setText(toTimestamp(total));
-        this.seekBar.setMax(total.toSeconds());
-        
-        // Update Cue points and Current Time
-        setCuePoints();
-        getAnimation().currentTimeProperty().addListener((observableValue, oldValue, newValue) -> {
-            this.cuePointName.setText(getPrevCuePoint(newValue).getValue());
-            this.currentTime.setText(toTimestamp(newValue));
-            if (!this.seekBar.isValueChanging())
-                this.seekBar.setValue(newValue.toSeconds());
-        });
-        this.seekBar.valueProperty().addListener((observableValue, oldValue, newValue) -> {
-            getAnimation().jumpTo(Duration.seconds(newValue.doubleValue()));
-        });
 
-        // Set time to Start
-        this.seekBar.setValue(0);
-        getAnimation().stop();
     }
 
     /**

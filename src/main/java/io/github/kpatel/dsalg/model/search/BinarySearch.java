@@ -33,7 +33,7 @@ public class BinarySearch<E extends Comparable<E>> extends Generator<Delta> {
                 push(new DeltaMoveMarker("Low",low));
             }else{
                 push(new DeltaSuccess(true));
-                break;
+                return;
             }
         }
         push(new DeltaSuccess(false));
