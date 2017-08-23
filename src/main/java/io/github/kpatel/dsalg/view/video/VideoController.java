@@ -3,6 +3,7 @@ package io.github.kpatel.dsalg.view.video;
 import javafx.animation.Animation;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -26,17 +27,9 @@ public class VideoController {
     private Label totalTime;
     @FXML
     private Slider seekBar;
+
     private Animation animation = new Timeline();
     private TreeMap<Duration, String> cuePoints = new TreeMap<>();
-
-    private ChangeListener<Duration> adjustControls = (observableValue, oldValue, newValue) -> {
-        this.cuePointName.setText(getPrevCuePoint(newValue).getValue());
-        this.currentTime.setText(toTimestamp(newValue));
-        if (!this.seekBar.isValueChanging())
-            this.seekBar.setValue(newValue.toSeconds());
-    };
-    private ChangeListener<Number> adjustTimeline = (observableValue, oldValue, newValue) ->
-            getAnimation().jumpTo(Duration.seconds(newValue.doubleValue()));
 
     /**
      * Toggle Play Pause state for the underlying Animation Object
@@ -107,12 +100,11 @@ public class VideoController {
      */
     public void setAnimation(Animation animation) {
         // Unbind and Rebind Step
+        this.animation.currentTimeProperty().removeListener(this::adjustControls);
+        animation.currentTimeProperty().addListener(this::adjustControls);
 
-        this.animation.currentTimeProperty().removeListener(this.adjustControls);
-        animation.currentTimeProperty().addListener(this.adjustControls);
-
-        this.seekBar.valueProperty().removeListener(this.adjustTimeline);
-        this.seekBar.valueProperty().addListener(this.adjustTimeline);
+        this.seekBar.valueProperty().removeListener(this::adjustTimeline);
+        this.seekBar.valueProperty().addListener(this::adjustTimeline);
 
         // Value Setting
         Duration totalDuration = animation.getTotalDuration();
@@ -139,7 +131,6 @@ public class VideoController {
         return cuePoints;
     }
 
-
     /**
      * Access: Animation Pane
      */
@@ -147,12 +138,15 @@ public class VideoController {
         return animationPane;
     }
 
-    /**
-     * Update bindings
-     */
-    private void updateBinding() {
-        // Updating total duration
+    private void adjustControls(ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue) {
+        this.cuePointName.setText(getPrevCuePoint(newValue).getValue());
+        this.currentTime.setText(toTimestamp(newValue));
+        if (!this.seekBar.isValueChanging())
+            this.seekBar.setValue(newValue.toSeconds());
+    }
 
+    private void adjustTimeline(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+        getAnimation().jumpTo(Duration.seconds(newValue.doubleValue()));
     }
 
     /**

@@ -1,12 +1,10 @@
 package io.github.kpatel.dsalg.doc.alg.search;
 
 import io.github.kpatel.dsalg.doc.Demonstration;
-import io.github.kpatel.dsalg.model.BubbleSort;
 import io.github.kpatel.dsalg.model.search.DeltaSuccess;
 import io.github.kpatel.dsalg.model.search.LinearSearch;
 import io.github.kpatel.dsalg.model.util.Delta;
 import io.github.kpatel.dsalg.model.util.DeltaMoveMarker;
-import io.github.kpatel.dsalg.model.util.DeltaSwap;
 import io.github.kpatel.dsalg.model.util.RandomUtil;
 import io.github.kpatel.dsalg.view.ArrowMarker;
 import io.github.kpatel.dsalg.view.BubbleNode;

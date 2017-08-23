@@ -1,7 +1,7 @@
 package io.github.kpatel.dsalg.doc.alg.sort;
 
 import io.github.kpatel.dsalg.doc.Demonstration;
-import io.github.kpatel.dsalg.model.BubbleSort;
+import io.github.kpatel.dsalg.model.sort.BubbleSort;
 import io.github.kpatel.dsalg.model.util.Delta;
 import io.github.kpatel.dsalg.model.util.DeltaMoveMarker;
 import io.github.kpatel.dsalg.model.util.DeltaSwap;
@@ -13,7 +13,6 @@ import javafx.animation.Animation;
 import javafx.animation.SequentialTransition;
 import javafx.animation.Transition;
 import javafx.scene.layout.Pane;
-import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.Optional;

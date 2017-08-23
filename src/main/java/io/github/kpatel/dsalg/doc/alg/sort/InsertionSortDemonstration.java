@@ -1,7 +1,7 @@
 package io.github.kpatel.dsalg.doc.alg.sort;
 
 import io.github.kpatel.dsalg.doc.Demonstration;
-import io.github.kpatel.dsalg.model.InsertionSort;
+import io.github.kpatel.dsalg.model.sort.InsertionSort;
 import io.github.kpatel.dsalg.model.util.Delta;
 import io.github.kpatel.dsalg.model.util.DeltaMoveMarker;
 import io.github.kpatel.dsalg.model.util.DeltaSwap;
