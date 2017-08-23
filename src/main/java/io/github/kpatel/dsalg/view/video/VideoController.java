@@ -34,9 +34,10 @@ public class VideoController {
         this.currentTime.setText(toTimestamp(newValue));
         if (!this.seekBar.isValueChanging())
             this.seekBar.setValue(newValue.toSeconds());
-    };;
+    };
     private ChangeListener<Number> adjustTimeline = (observableValue, oldValue, newValue) ->
             getAnimation().jumpTo(Duration.seconds(newValue.doubleValue()));
+
     /**
      * Toggle Play Pause state for the underlying Animation Object
      */

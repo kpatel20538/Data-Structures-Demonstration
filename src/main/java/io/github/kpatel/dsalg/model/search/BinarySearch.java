@@ -24,13 +24,15 @@ public class BinarySearch<E extends Comparable<E>> extends Generator<Delta> {
         while (low <= high) {
             int middle = low + (high - low) / 2;
             push(new DeltaMoveMarker("Middle",middle));
-            int comparison =  this.target.compareTo(list.get(middle));
+            int comparison = this.target.compareTo(list.get(middle));
             if(comparison == -1){
                 high = middle - 1;
-                push(new DeltaMoveMarker("High",high));
+                if(low <= high)
+                    push(new DeltaMoveMarker("High", high));
             }else if(comparison == 1){
                 low = middle + 1;
-                push(new DeltaMoveMarker("Low",low));
+                if(low <= high)
+                    push(new DeltaMoveMarker("Low", low));
             }else{
                 push(new DeltaSuccess(true));
                 return;
