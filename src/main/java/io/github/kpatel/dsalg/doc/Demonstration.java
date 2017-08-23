@@ -12,7 +12,7 @@ public abstract class Demonstration{
 
     public Demonstration( String name, String fxmlPath ){
         this.name = name;
-        this.fxmlPath = getClass().getResource(fxmlPath);
+        this.fxmlPath = getClass().getResource("/io/github/kpatel/dsalg/doc/introduction.fxml");
     }
 
     public String getName() {

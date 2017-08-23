@@ -2,20 +2,24 @@ package io.github.kpatel.dsalg;
 
 
 import io.github.kpatel.dsalg.doc.*;
-import io.github.kpatel.dsalg.video.VideoController;
+import io.github.kpatel.dsalg.view.video.VideoController;
 import javafx.animation.Animation;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Button;
 import javafx.scene.control.TreeCell;
+import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class MainController {
-    @FXML private TreeView<Demonstration> tableOfContents;
+    @FXML private Button expandButton;
+    @FXML private Button collapseButton;
+    @FXML private TreeView<Demonstration> contentNavigator;
     @FXML private StackPane documentView;
     @FXML private VideoController videoController;
 
@@ -37,7 +41,7 @@ public class MainController {
 
     public Demonstration createTableOfContents(){
         // Setup Tree Cell's Text and onClick Handler
-        tableOfContents.setCellFactory(demonstrationTreeView ->
+        contentNavigator.setCellFactory(demonstrationTreeView ->
                 new TreeCell<Demonstration>(){
                     @Override protected void updateItem(Demonstration demonstration, boolean empty) {
                         super.updateItem(demonstration, empty);
@@ -52,7 +56,20 @@ public class MainController {
         );
         // Load Demonstrations to TreeView
         IntroductionDemonstration root = new IntroductionDemonstration();
-        tableOfContents.setRoot(root.getItem());
+        contentNavigator.setRoot(root.getItem());
+        expandButton.setOnAction(actionEvent -> expandNavigator(true));
+        collapseButton.setOnAction(actionEvent -> expandNavigator(false));
         return root;
+    }
+
+    public void expandNavigator(boolean expand){
+        ArrayList<TreeItem<Demonstration>> items = new ArrayList<>();
+        TreeItem<Demonstration> item;
+        items.add(contentNavigator.getRoot());
+        while(!items.isEmpty()){
+            item = items.remove(0);
+            items.addAll(item.getChildren());
+            item.setExpanded(expand);
+        }
     }
 }

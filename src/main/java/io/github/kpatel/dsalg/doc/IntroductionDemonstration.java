@@ -1,26 +1,25 @@
 package io.github.kpatel.dsalg.doc;
 
-import io.github.kpatel.dsalg.doc.adt.*;
-import io.github.kpatel.dsalg.video.builder.TranslateBuilder;
+import io.github.kpatel.dsalg.doc.alg.SortingDemonstration;
+import io.github.kpatel.dsalg.view.video.animate.builder.TranslateBuilder;
 import javafx.animation.*;
-import javafx.beans.binding.DoubleBinding;
 import javafx.scene.control.TreeItem;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 public class IntroductionDemonstration extends Demonstration {
     public IntroductionDemonstration() {
-        super("Data Structures and Algorithms", "introduction.fxml");
+        super("Data Structures and AlgorithmsDemonstation", "introduction.fxml");
     }
 
     @Override
     public TreeItem<Demonstration> getItem() {
         TreeItem<Demonstration> root = super.getItem();
         root.getChildren().addAll(
-                new AbstractDataTypeDemonstration().getItem()
+                new AbstractDataTypeDemonstration().getItem(),
+                new SortingDemonstration().getItem()
         );
         root.setExpanded(true);
         return root;

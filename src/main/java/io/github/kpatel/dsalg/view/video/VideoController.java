@@ -1,4 +1,4 @@
-package io.github.kpatel.dsalg.video;
+package io.github.kpatel.dsalg.view.video;
 
 import javafx.animation.Animation;
 import javafx.event.ActionEvent;

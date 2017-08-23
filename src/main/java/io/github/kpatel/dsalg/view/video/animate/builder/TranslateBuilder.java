@@ -1,4 +1,4 @@
-package io.github.kpatel.dsalg.video.builder;
+package io.github.kpatel.dsalg.view.video.animate.builder;
 
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Bounds;
