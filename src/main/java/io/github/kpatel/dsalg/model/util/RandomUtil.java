@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class RandomUtil {
-    public static ArrayList<Integer> nextList(int size){
+    public static ArrayList<Integer> nextList(int size) {
         Random random = new Random();
         ArrayList<Integer> list = new ArrayList<>(size);
-        for(int i = 0; i < size; i++){
-            list.add(i, (int) (random.nextDouble()*10+1));
+        for (int i = 0; i < size; i++) {
+            list.add(i, (int) (random.nextDouble() * 10 + 1));
         }
         return list;
     }

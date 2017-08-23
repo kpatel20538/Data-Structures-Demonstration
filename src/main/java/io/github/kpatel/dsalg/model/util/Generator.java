@@ -10,17 +10,19 @@ public abstract class Generator<E> implements Iterable<E> {
 
     protected abstract void apply();
 
-    public void push(E element){
+    public void push(E element) {
         getElements().add(element);
     }
-    public void pushAll(Collection<? extends E> elements){
+
+    public void pushAll(Collection<? extends E> elements) {
         getElements().addAll(elements);
     }
+
     public void pushAll(E... elements) {
         Collections.addAll(getElements(), elements);
     }
 
-    public ArrayList<E> getElements(){
+    public ArrayList<E> getElements() {
         return elements;
     }
 

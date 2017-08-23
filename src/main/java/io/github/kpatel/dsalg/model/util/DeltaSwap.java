@@ -1,10 +1,12 @@
 package io.github.kpatel.dsalg.model.util;
 
-public class DeltaSwap extends Delta{
+public class DeltaSwap extends Delta {
     private final int left;
     private final int right;
-    public DeltaSwap(int left,int right){
-        this.left = left; this.right = right;
+
+    public DeltaSwap(int left, int right) {
+        this.left = left;
+        this.right = right;
     }
 
     public int getLeft() {
@@ -17,6 +19,6 @@ public class DeltaSwap extends Delta{
 
     @Override
     public String toString() {
-        return String.format("%s <--> %s", getLeft(),getRight());
+        return String.format("%s <--> %s", getLeft(), getRight());
     }
 }

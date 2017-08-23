@@ -6,9 +6,11 @@ import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
+import java.util.HashMap;
 import java.util.List;
 
 public abstract class DotGroup {
@@ -17,7 +19,8 @@ public abstract class DotGroup {
     private final DoubleProperty width;
     private final DoubleProperty height;
     private List<Dot> dots;
-    public DotGroup(Pane animationPane, double x, double y, double width, double height, int size){
+
+    public DotGroup(Pane animationPane, double x, double y, double width, double height, int size) {
         this.x = new SimpleDoubleProperty(0);
         this.y = new SimpleDoubleProperty(0);
         this.width = new SimpleDoubleProperty(0);
@@ -31,15 +34,15 @@ public abstract class DotGroup {
 
     protected abstract List<Dot> assignDots(int size);
 
-    public List<Dot> getDots(){
+    public List<Dot> getDots() {
         return dots;
     }
 
-    public Transition swapDots(int i, int j){
+    public Transition swapDots(int i, int j) {
         Dot left = getDots().get(i);
         Dot right = getDots().get(j);
         Transition ltt = left.getNode().map(node -> {
-            TranslateTransition tt = new TranslateTransition(Duration.seconds(1),node);
+            TranslateTransition tt = new TranslateTransition(Duration.seconds(1), node);
             tt.fromXProperty().bind(left.xProperty());
             tt.fromYProperty().bind(left.yProperty());
             tt.toXProperty().bind(right.xProperty());
@@ -47,7 +50,7 @@ public abstract class DotGroup {
             return (Transition) tt;
         }).orElse(new PauseTransition(Duration.ZERO));
         Transition rtt = right.getNode().map(node -> {
-            TranslateTransition tt = new TranslateTransition(Duration.seconds(1),node);
+            TranslateTransition tt = new TranslateTransition(Duration.seconds(1), node);
             tt.fromXProperty().bind(right.xProperty());
             tt.fromYProperty().bind(right.yProperty());
             tt.toXProperty().bind(left.xProperty());
@@ -55,14 +58,14 @@ public abstract class DotGroup {
             return (Transition) tt;
         }).orElse(new PauseTransition(Duration.ZERO));
         left.setNode(right.setNode(left.getNode()));
-        return new ParallelTransition(ltt,rtt);
+        return new ParallelTransition(ltt, rtt);
     }
 
-    public Transition fadeIn(){
+    public Transition fadeIn() {
         ParallelTransition pt = new ParallelTransition();
-        for(Dot dot : getDots()){
+        for (Dot dot : getDots()) {
             pt.getChildren().add(dot.getNode().map(node -> {
-                TranslateTransition tt = new TranslateTransition(Duration.ONE,node);
+                TranslateTransition tt = new TranslateTransition(Duration.ONE, node);
                 tt.toXProperty().bind(dot.xProperty());
                 tt.toYProperty().bind(dot.yProperty());
                 return (Transition) tt;
@@ -70,6 +73,14 @@ public abstract class DotGroup {
         }
         return pt;
     }
+
+    public Transition moveMarker(Node node,int i,double xOffset,double yOffset){
+        TranslateTransition tt = new TranslateTransition(Duration.seconds(1), node);
+        tt.toXProperty().bind(getDots().get(i).xProperty().add(xOffset));
+        tt.toYProperty().bind(getDots().get(i).yProperty().add(yOffset));
+        return tt;
+    }
+
 
     public double getX() {
         return x.get();
@@ -105,6 +116,6 @@ public abstract class DotGroup {
 
     @Override
     public String toString() {
-        return String.format("(%s,%s,%s,%s) %s", getX(),getY(),getWidth(),getHeight(),getDots());
+        return String.format("(%s,%s,%s,%s) %s", getX(), getY(), getWidth(), getHeight(), getDots());
     }
 }

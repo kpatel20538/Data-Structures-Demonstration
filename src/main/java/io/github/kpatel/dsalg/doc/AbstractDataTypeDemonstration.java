@@ -6,7 +6,7 @@ import javafx.animation.Timeline;
 import javafx.scene.control.TreeItem;
 import javafx.scene.layout.Pane;
 
-public class AbstractDataTypeDemonstration extends Demonstration{
+public class AbstractDataTypeDemonstration extends Demonstration {
 
     public AbstractDataTypeDemonstration() {
         super("Abstract Data Types", "../introduction.fxml");
@@ -32,6 +32,6 @@ public class AbstractDataTypeDemonstration extends Demonstration{
 
     @Override
     public Animation makeAnimation(Pane animationPane) {
-       return new Timeline();
+        return new Timeline();
     }
 }

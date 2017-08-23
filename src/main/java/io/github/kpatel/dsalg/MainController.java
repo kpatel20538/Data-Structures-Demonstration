@@ -1,7 +1,8 @@
 package io.github.kpatel.dsalg;
 
 
-import io.github.kpatel.dsalg.doc.*;
+import io.github.kpatel.dsalg.doc.Demonstration;
+import io.github.kpatel.dsalg.doc.IntroductionDemonstration;
 import io.github.kpatel.dsalg.view.video.VideoController;
 import javafx.animation.Animation;
 import javafx.fxml.FXML;
@@ -17,39 +18,46 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainController {
-    @FXML private Button expandButton;
-    @FXML private Button collapseButton;
-    @FXML private TreeView<Demonstration> contentNavigator;
-    @FXML private StackPane documentView;
-    @FXML private VideoController videoController;
+    @FXML
+    private Button expandButton;
+    @FXML
+    private Button collapseButton;
+    @FXML
+    private TreeView<Demonstration> contentNavigator;
+    @FXML
+    private StackPane documentView;
+    @FXML
+    private VideoController videoController;
 
     public void loadDemonstration(Demonstration demonstration) {
-        try{
+        try {
             documentView.getChildren().add(FXMLLoader.load(demonstration.getFxmlPath()));
             Pane animationPane = videoController.getAnimationPane();
             animationPane.getChildren().clear();
             Animation animation = demonstration.makeAnimation(animationPane);
             videoController.setAnimation(animation);
-        }catch (IOException io){
+        } catch (IOException io) {
             io.printStackTrace();
         }
     }
 
-    public void init(){
+    public void init() {
         loadDemonstration(createTableOfContents());
     }
 
-    public Demonstration createTableOfContents(){
+    public Demonstration createTableOfContents() {
         // Setup Tree Cell's Text and onClick Handler
         contentNavigator.setCellFactory(demonstrationTreeView ->
-                new TreeCell<Demonstration>(){
-                    @Override protected void updateItem(Demonstration demonstration, boolean empty) {
+                new TreeCell<Demonstration>() {
+                    @Override
+                    protected void updateItem(Demonstration demonstration, boolean empty) {
                         super.updateItem(demonstration, empty);
                         boolean isValid = !empty && demonstration != null;
-                        setText(isValid ? demonstration.getName():null);
+                        setText(isValid ? demonstration.getName() : null);
                         setOnMouseClicked(isValid ?
                                 (event -> loadDemonstration(demonstration)) :
-                                (event -> {})
+                                (event -> {
+                                })
                         );
                     }
                 }
@@ -62,11 +70,11 @@ public class MainController {
         return root;
     }
 
-    public void expandNavigator(boolean expand){
+    public void expandNavigator(boolean expand) {
         ArrayList<TreeItem<Demonstration>> items = new ArrayList<>();
         TreeItem<Demonstration> item;
         items.add(contentNavigator.getRoot());
-        while(!items.isEmpty()){
+        while (!items.isEmpty()) {
             item = items.remove(0);
             items.addAll(item.getChildren());
             item.setExpanded(expand);

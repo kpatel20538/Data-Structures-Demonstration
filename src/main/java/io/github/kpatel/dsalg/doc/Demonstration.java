@@ -6,11 +6,11 @@ import javafx.scene.layout.Pane;
 
 import java.net.URL;
 
-public abstract class Demonstration{
+public abstract class Demonstration {
     private final String name;
     private final URL fxmlPath;
 
-    public Demonstration( String name, String fxmlPath ){
+    public Demonstration(String name, String fxmlPath) {
         this.name = name;
         this.fxmlPath = getClass().getResource("/io/github/kpatel/dsalg/doc/introduction.fxml");
     }
@@ -24,7 +24,8 @@ public abstract class Demonstration{
     }
 
     public abstract Animation makeAnimation(Pane animationPane);
-    public TreeItem<Demonstration> getItem(){
+
+    public TreeItem<Demonstration> getItem() {
         return new TreeItem<>(this);
     }
 }

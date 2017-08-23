@@ -13,7 +13,7 @@ public class MainApp extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Data Structures and Algorithms");
 
         FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("main_app.fxml"));

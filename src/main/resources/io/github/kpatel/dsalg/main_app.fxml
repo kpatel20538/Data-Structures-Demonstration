@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<SplitPane dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.kpatel.dsalg.MainController">
+<SplitPane dividerPositions="0.25" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.kpatel.dsalg.MainController">
    <items>
       <VBox spacing="5.0">
          <children>
@@ -37,7 +37,7 @@
       </VBox>
       <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
          <items>
-            <StackPane prefHeight="150.0" prefWidth="200.0" >
+            <StackPane prefHeight="150.0" prefWidth="200.0">
                 <fx:include fx:id="video" source="./view/video/video_view.fxml" />
             </StackPane>
             <StackPane fx:id="documentView" prefHeight="150.0" prefWidth="200.0" />
