@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<TabPane>
+  <tabs>
+    <Tab text="Lorem Ipsum" closable="false">
+      <content>
+        <ScrollPane fitToWidth="true">
+          <content>
+            <VBox spacing="10.0">
+              <children>
+                <Label text="Lorem Ipsum" wrapText="true">
+                  <font>
+                    <Font size="24.0" name="System Bold Italic"/>
+                  </font>
+                </Label>
+                <Label text="          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lobortis ante vel fermentum lobortis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vivamus porttitor, mi sit amet ultrices pulvinar, nulla sem tristique magna, ac placerat est lorem in quam. Phasellus tincidunt velit sed finibus gravida. Ut tristique lacus ut efficitur elementum. Duis risus arcu, pulvinar vitae turpis at, tincidunt vehicula dui. Ut suscipit rutrum dui quis pretium. Sed sapien velit, accumsan efficitur turpis fermentum, pulvinar finibus lorem. Aliquam erat volutpat. Duis aliquam eget augue sed tempor. Nulla pellentesque venenatis egestas." wrapText="true"/>
+                <Label text="          Aliquam suscipit velit et rutrum molestie. Nam vehicula ornare orci id hendrerit. Duis sed pellentesque nibh, vel malesuada elit. Nunc sed eleifend orci, at auctor felis. In dignissim faucibus diam nec hendrerit. Sed gravida dictum nisl, et efficitur nisl accumsan eget. Nulla sed ligula sem. Vivamus condimentum quis leo ac interdum. Suspendisse pretium laoreet placerat. Proin nec magna sed est viverra vulputate non vitae nisi. Sed eu sagittis arcu. Sed in condimentum nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur in est libero. Donec vulputate dui ante, at lacinia nibh tempus id." wrapText="true"/>
+                <Label text="          Quisque blandit gravida odio ac scelerisque. Integer eget sem in enim scelerisque placerat eu malesuada mi. Nunc erat nisl, lobortis eu purus sed, porttitor laoreet nibh. Vivamus nibh sapien, rhoncus non neque quis, dapibus scelerisque erat. Aenean scelerisque vestibulum justo, eu placerat leo sodales ut. Pellentesque nulla magna, iaculis eu libero quis, accumsan pharetra lacus. Nunc finibus efficitur dapibus. Sed a dictum odio. Curabitur efficitur sagittis nisi eu aliquam. Praesent eu dignissim felis, sit amet bibendum erat. Nunc euismod commodo nisl, vitae gravida neque eleifend quis. Fusce gravida libero feugiat augue scelerisque ornare in in justo." wrapText="true"/>
+                <Label text="          Sed at lectus velit. Phasellus sit amet dui at nisi bibendum faucibus. In sed pharetra nisi. Quisque tincidunt ligula id sem tempus, et varius dui vulputate. Mauris consequat non neque ut vestibulum. Morbi condimentum lacus eget justo euismod efficitur. Mauris pretium eleifend turpis nec venenatis. Integer quam turpis, gravida nec auctor nec, aliquet et arcu. Curabitur malesuada tortor ut ligula vehicula venenatis. Phasellus consectetur lectus tellus, sit amet interdum leo tincidunt quis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum purus felis, egestas et ipsum id, iaculis ultrices nibh." wrapText="true"/>
+                <Label text="          Mauris venenatis egestas ipsum sed vehicula. Etiam tempus porta nulla, a dignissim risus posuere et. Etiam pretium convallis tristique. Nulla facilisi. Donec ut velit ut orci porttitor maximus. Praesent condimentum cursus dui, et ornare dui pretium quis. Quisque varius gravida sem, eu vestibulum quam vulputate et. Phasellus quis dolor mi. Nulla facilisi. Fusce commodo ultrices neque sed interdum." wrapText="true"/>
+              </children>
+              <opaqueInsets>
+                <Insets/>
+              </opaqueInsets>
+              <padding>
+                <Insets top="10.0" right="10.0" left="10.0" bottom="10.0"/>
+              </padding>
+            </VBox>
+          </content>
+        </ScrollPane>
+      </content>
+    </Tab>
+  </tabs>
+</TabPane>

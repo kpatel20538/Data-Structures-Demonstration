@@ -9,7 +9,7 @@ import javafx.scene.layout.Pane;
 public class AbstractDataTypeDemonstration extends Demonstration {
 
     public AbstractDataTypeDemonstration() {
-        super("Abstract Data Types", "../introduction.fxml");
+        super("Abstract Data Types", "../abstract_data_type.fxml");
     }
 
     @Override
@@ -17,10 +17,10 @@ public class AbstractDataTypeDemonstration extends Demonstration {
         TreeItem<Demonstration> root = super.getItem();
         root.getChildren().addAll(
                 new ContainerDemonstration().getItem(),
-                new ListDemonstration().getItem(),
                 new StackDemonstration().getItem(),
                 new QueueDemonstration().getItem(),
                 new PriorityQueueDemonstration().getItem(),
+                new ListDemonstration().getItem(),
                 new SetDemonstration().getItem(),
                 new MapDemonstration().getItem(),
                 new AbstractTreeDemonstration().getItem(),

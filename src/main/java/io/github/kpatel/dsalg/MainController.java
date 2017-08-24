@@ -16,6 +16,7 @@ import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class MainController {
     @FXML
@@ -52,12 +53,11 @@ public class MainController {
                     @Override
                     protected void updateItem(Demonstration demonstration, boolean empty) {
                         super.updateItem(demonstration, empty);
-                        boolean isValid = !empty && demonstration != null;
+                        boolean isValid = demonstration != null && !empty;
                         setText(isValid ? demonstration.getName() : null);
                         setOnMouseClicked(isValid ?
                                 (event -> loadDemonstration(demonstration)) :
-                                (event -> {
-                                })
+                                (event -> {})
                         );
                     }
                 }

@@ -1,9 +1,7 @@
 package io.github.kpatel.dsalg.doc.alg;
 
 import io.github.kpatel.dsalg.doc.Demonstration;
-import io.github.kpatel.dsalg.doc.alg.sort.BubbleSortDemonstration;
-import io.github.kpatel.dsalg.doc.alg.sort.InsertionSortDemonstration;
-import io.github.kpatel.dsalg.doc.alg.sort.SelectionSortDemonstration;
+import io.github.kpatel.dsalg.doc.alg.sort.*;
 import javafx.animation.Animation;
 import javafx.animation.Timeline;
 import javafx.scene.control.TreeItem;
@@ -20,7 +18,13 @@ public class SortingDemonstration extends Demonstration {
         root.getChildren().addAll(
                 new BubbleSortDemonstration().getItem(),
                 new InsertionSortDemonstration().getItem(),
-                new SelectionSortDemonstration().getItem()
+                new SelectionSortDemonstration().getItem(),
+                new TreeSortDemonstration().getItem(),
+                new HeapSortDemonstration().getItem(),
+                new MergeSortDemonstration().getItem(),
+                new QuickSortDemonstration().getItem(),
+                new RadixSortDemonstration().getItem(),
+                new BucketSortDemonstration().getItem()
         );
         return root;
     }

@@ -2,6 +2,7 @@ package io.github.kpatel.dsalg.model.search;
 
 import io.github.kpatel.dsalg.model.util.Delta;
 import io.github.kpatel.dsalg.model.util.DeltaMoveMarker;
+import io.github.kpatel.dsalg.model.util.DeltaSuccess;
 import io.github.kpatel.dsalg.model.util.Generator;
 
 import java.util.List;

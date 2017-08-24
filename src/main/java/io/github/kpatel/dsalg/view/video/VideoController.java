@@ -2,7 +2,6 @@ package io.github.kpatel.dsalg.view.video;
 
 import javafx.animation.Animation;
 import javafx.animation.Timeline;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -100,6 +99,7 @@ public class VideoController {
      */
     public void setAnimation(Animation animation) {
         // Unbind and Rebind Step
+        this.animation.stop();
         this.animation.currentTimeProperty().removeListener(this::adjustControls);
         animation.currentTimeProperty().addListener(this::adjustControls);
 

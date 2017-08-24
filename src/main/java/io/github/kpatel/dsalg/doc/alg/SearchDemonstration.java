@@ -1,8 +1,7 @@
 package io.github.kpatel.dsalg.doc.alg;
 
 import io.github.kpatel.dsalg.doc.Demonstration;
-import io.github.kpatel.dsalg.doc.alg.search.BinarySearchDemonstration;
-import io.github.kpatel.dsalg.doc.alg.search.LinearSearchDemonstration;
+import io.github.kpatel.dsalg.doc.alg.search.*;
 import javafx.animation.Animation;
 import javafx.animation.Timeline;
 import javafx.scene.control.TreeItem;
@@ -18,7 +17,8 @@ public class SearchDemonstration extends Demonstration {
         TreeItem<Demonstration> root = super.getItem();
         root.getChildren().addAll(
                 new LinearSearchDemonstration().getItem(),
-                new BinarySearchDemonstration().getItem()
+                new BinarySearchDemonstration().getItem(),
+                new TreeTraversalDemonstration().getItem()
         );
         return root;
     }

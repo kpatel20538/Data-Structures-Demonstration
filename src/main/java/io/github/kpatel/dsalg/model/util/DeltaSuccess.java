@@ -1,4 +1,4 @@
-package io.github.kpatel.dsalg.model.search;
+package io.github.kpatel.dsalg.model.util;
 
 import io.github.kpatel.dsalg.model.util.Delta;
 

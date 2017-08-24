@@ -10,17 +10,18 @@ import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public abstract class DotGroup {
+public class DotGroup {
     private final DoubleProperty x;
     private final DoubleProperty y;
     private final DoubleProperty width;
     private final DoubleProperty height;
-    private List<Dot> dots;
+    private final ArrayList<Dot> dots ;
 
-    public DotGroup(Pane animationPane, double x, double y, double width, double height, int size) {
+    public DotGroup(Pane animationPane, double x, double y, double width, double height) {
         this.x = new SimpleDoubleProperty(0);
         this.y = new SimpleDoubleProperty(0);
         this.width = new SimpleDoubleProperty(0);
@@ -29,12 +30,10 @@ public abstract class DotGroup {
         this.y.bind(animationPane.heightProperty().multiply(y));
         this.width.bind(animationPane.widthProperty().multiply(width));
         this.height.bind(animationPane.heightProperty().multiply(height));
-        this.dots = assignDots(size);
+        this.dots = new ArrayList<>();
     }
 
-    protected abstract List<Dot> assignDots(int size);
-
-    public List<Dot> getDots() {
+    public ArrayList<Dot> getDots() {
         return dots;
     }
 
@@ -63,13 +62,14 @@ public abstract class DotGroup {
 
     public Transition fadeIn() {
         ParallelTransition pt = new ParallelTransition();
-        for (Dot dot : getDots()) {
-            pt.getChildren().add(dot.getNode().map(node -> {
-                TranslateTransition tt = new TranslateTransition(Duration.ONE, node);
-                tt.toXProperty().bind(dot.xProperty());
-                tt.toYProperty().bind(dot.yProperty());
-                return (Transition) tt;
-            }).orElse(new PauseTransition(Duration.ZERO)));
+        TranslateTransition tt;
+        for (int i = 0; i<getDots().size(); i++) {
+            if(getDots().get(i).getNode().isPresent()){
+                tt = new TranslateTransition(Duration.seconds(1),getDots().get(i).getNode().get());
+                tt.toXProperty().bind(getDots().get(i).xProperty());
+                tt.toYProperty().bind(getDots().get(i).yProperty());
+                pt.getChildren().add(tt);
+            }
         }
         return pt;
     }

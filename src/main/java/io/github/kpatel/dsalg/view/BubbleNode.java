@@ -48,5 +48,4 @@ public class BubbleNode extends StackPane {
         tt.setToValue(1.0);
         return new ParallelTransition(ct,tt);
     }
-
 }

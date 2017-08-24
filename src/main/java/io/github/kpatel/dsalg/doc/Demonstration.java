@@ -12,7 +12,7 @@ public abstract class Demonstration {
 
     public Demonstration(String name, String fxmlPath) {
         this.name = name;
-        this.fxmlPath = getClass().getResource("/io/github/kpatel/dsalg/doc/introduction.fxml");
+        this.fxmlPath = getClass().getResource(fxmlPath);
     }
 
     public String getName() {
@@ -27,5 +27,9 @@ public abstract class Demonstration {
 
     public TreeItem<Demonstration> getItem() {
         return new TreeItem<>(this);
+    }
+
+    protected void markCuePoint(Animation animation, String cuePoint){
+        animation.getCuePoints().put(cuePoint,animation.getTotalDuration());
     }
 }

@@ -1,6 +1,6 @@
 package io.github.kpatel.dsalg.model.sort;
 
-import io.github.kpatel.dsalg.model.search.DeltaSuccess;
+import io.github.kpatel.dsalg.model.util.DeltaSuccess;
 import io.github.kpatel.dsalg.model.util.Delta;
 import io.github.kpatel.dsalg.model.util.DeltaMoveMarker;
 import io.github.kpatel.dsalg.model.util.DeltaSwap;

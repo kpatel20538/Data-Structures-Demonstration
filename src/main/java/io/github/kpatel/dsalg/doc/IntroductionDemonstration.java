@@ -12,7 +12,7 @@ import javafx.util.Duration;
 
 public class IntroductionDemonstration extends Demonstration {
     public IntroductionDemonstration() {
-        super("Data Structures and AlgorithmsDemonstration", "introduction.fxml");
+        super("Data Structures and Algorithms", "introduction.fxml");
     }
 
     @Override
@@ -20,6 +20,8 @@ public class IntroductionDemonstration extends Demonstration {
         TreeItem<Demonstration> root = super.getItem();
         root.getChildren().addAll(
                 new AbstractDataTypeDemonstration().getItem(),
+                new ConcreteDataStructureDemonstration().getItem(),
+                new ImplementationDemonstration().getItem(),
                 new AlgorithmsDemonstration().getItem()
         );
         root.setExpanded(true);
