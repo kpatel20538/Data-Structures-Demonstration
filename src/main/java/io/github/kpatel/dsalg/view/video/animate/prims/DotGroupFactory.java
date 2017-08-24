@@ -6,6 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DotGroupFactory {
+    public static DotGroup makePointGroup(Pane animationPane, double x, double y, double width, double height){
+        DotGroup dotGroup = new DotGroup(animationPane, x, y, width, height);
+        dotGroup.getDots().add(new Dot(dotGroup, 0.5, 0.5));
+        return dotGroup;
+    }
+
     public static DotGroup makeHorizontalGroup(Pane animationPane, double x, double y, double width, double height, int size){
         DotGroup dotGroup = new DotGroup(animationPane, x, y, width, height);
         ArrayList<Dot> dots = dotGroup.getDots();
@@ -14,6 +20,7 @@ public class DotGroupFactory {
         }
         return dotGroup;
     }
+
     public static DotGroup makeVerticalGroup(Pane animationPane, double x, double y, double width, double height, int size){
         DotGroup dotGroup = new DotGroup(animationPane, x, y, width, height);
         ArrayList<Dot> dots = dotGroup.getDots();
@@ -44,6 +51,5 @@ public class DotGroupFactory {
             girth *= 2;
         }
         return dotGroup;
-
     }
 }

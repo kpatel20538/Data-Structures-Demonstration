@@ -1,27 +1,30 @@
 package io.github.kpatel.dsalg.doc.alg.search;
 
 import io.github.kpatel.dsalg.doc.Demonstration;
+import io.github.kpatel.dsalg.model.sort.SelectionSort;
+import io.github.kpatel.dsalg.model.util.DeltaMarker;
 import io.github.kpatel.dsalg.model.util.DeltaSuccess;
 import io.github.kpatel.dsalg.model.search.LinearSearch;
 import io.github.kpatel.dsalg.model.util.Delta;
-import io.github.kpatel.dsalg.model.util.DeltaMoveMarker;
-import io.github.kpatel.dsalg.view.ArrowMarker;
+import io.github.kpatel.dsalg.view.BubbleMarker;
 import io.github.kpatel.dsalg.view.BubbleNode;
 import io.github.kpatel.dsalg.view.SignPost;
 import io.github.kpatel.dsalg.view.video.animate.prims.DotGroup;
 import io.github.kpatel.dsalg.view.video.animate.prims.DotGroupFactory;
+import io.github.kpatel.dsalg.view.video.animate.prims.DotPool;
 import javafx.animation.Animation;
 import javafx.animation.PauseTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.Transition;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 
 import java.util.*;
 
 public class LinearSearchDemonstration extends Demonstration {
-    private final static int DATA_SIZE = 50;
-    private final static int MAX_VALUE = 50;
+    private final static int DATA_SIZE = 10;
+    private final static int MAX_VALUE = 10;
     private final static int MIN_VALUE = 1;
 
     private final static String[] markerNames = {"Needle"};
@@ -39,11 +42,7 @@ public class LinearSearchDemonstration extends Demonstration {
             dataModel.add(i, random.nextInt(MAX_VALUE-MIN_VALUE)+MIN_VALUE);
         int target = random.nextInt(MAX_VALUE-MIN_VALUE)+MIN_VALUE;
 
-        //Markers
-        HashMap<String, Node> markers = new HashMap<>();
-        for(String name : markerNames)
-            markers.put(name,new ArrowMarker());
-        animationPane.getChildren().addAll(markers.values());
+        DotPool dotPool = new DotPool();
 
         //Goalpost View
         SignPost goalPost = new SignPost(new BubbleNode(target,true));
@@ -59,28 +58,23 @@ public class LinearSearchDemonstration extends Demonstration {
             dotGroup.getDots().get(i).setNode(Optional.of(bubbleNode));
             animationPane.getChildren().add(bubbleNode);
         }
+        dotPool.getDotGroups().put("Sequence",dotGroup);
 
-        //Animation by Deltas
-        SequentialTransition sequentialTransition = new SequentialTransition(dotGroup.fadeIn());
-        Optional<Transition> transition;
-        for (Delta delta : new LinearSearch<>(dataModel, target)) {
-            transition = Optional.empty();
-            if(delta instanceof DeltaMoveMarker){
-                DeltaMoveMarker moveMarker = (DeltaMoveMarker) delta;
-                transition = Optional.of( new SequentialTransition(
-                        dotGroup.moveMarker(markers.get(
-                                moveMarker.getName()),moveMarker.getTarget(),15,-20),
-                        dotGroup.getDots().get(moveMarker.getTarget()).getNode()
-                                .map(node -> ((BubbleNode) node).flipUp())
-                                .orElse(new PauseTransition())
-                ));
-            } else if(delta instanceof DeltaSuccess){
+        //Markers
+        for(String name : markerNames)
+            dotPool.getMarkers().put(name,new BubbleMarker());
+        animationPane.getChildren().addAll(dotPool.getMarkers().values());
+
+
+        dotPool.setPostInterceptor((pool,delta) -> {
+            if(delta instanceof DeltaSuccess){
                 boolean success = ((DeltaSuccess) delta).isSuccess();
-                markCuePoint(sequentialTransition,success? "Target Found":"Target Not Found");
-                transition = Optional.of(goalPost.signal(success));
+                return goalPost.signal(success);
+            }else{
+                return new PauseTransition(Duration.ZERO);
             }
-            transition.ifPresent(sequentialTransition.getChildren()::add);
-        }
-        return sequentialTransition;
+        });
+
+        return dotPool.applyDeltas(new LinearSearch<>(dataModel, target));
     }
 }

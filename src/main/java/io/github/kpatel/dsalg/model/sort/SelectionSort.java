@@ -1,10 +1,7 @@
 package io.github.kpatel.dsalg.model.sort;
 
-import io.github.kpatel.dsalg.model.util.DeltaSuccess;
-import io.github.kpatel.dsalg.model.util.Delta;
-import io.github.kpatel.dsalg.model.util.DeltaMoveMarker;
-import io.github.kpatel.dsalg.model.util.DeltaSwap;
-import io.github.kpatel.dsalg.model.util.Generator;
+import io.github.kpatel.dsalg.model.util.*;
+import io.github.kpatel.dsalg.model.util.DeltaMarker;
 
 import java.util.Collections;
 import java.util.List;
@@ -18,19 +15,20 @@ public class SelectionSort<E extends Comparable<E>> extends Generator<Delta> {
 
     @Override
     protected void apply() {
+        push(new DeltaStart());
         int minIndex;
         for (int i = 1; i < list.size(); i++) {
-            push(new DeltaMoveMarker("Position", i-1));
+            push(new DeltaMarker("Sequence", i-1,"Position"));
             minIndex = i - 1;
             for (int j = i; j < list.size(); j++) {
-                push(new DeltaMoveMarker("Minimum", j));
+                push(new DeltaMarker("Sequence", j,"Minimum"));
                 if (list.get(j).compareTo(list.get(minIndex)) == -1) {
                     minIndex = j;
                 }
             }
             if (minIndex != i - 1) {
                 Collections.swap(list, i - 1, minIndex);
-                push(new DeltaSwap(i - 1, minIndex));
+                push(new DeltaSwap("Sequence",i - 1, minIndex));
             }
         }
         push(new DeltaSuccess(true));

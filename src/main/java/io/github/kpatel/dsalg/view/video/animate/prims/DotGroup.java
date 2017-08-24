@@ -8,11 +8,10 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 public class DotGroup {
     private final DoubleProperty x;
@@ -31,10 +30,6 @@ public class DotGroup {
         this.width.bind(animationPane.widthProperty().multiply(width));
         this.height.bind(animationPane.heightProperty().multiply(height));
         this.dots = new ArrayList<>();
-    }
-
-    public ArrayList<Dot> getDots() {
-        return dots;
     }
 
     public Transition swapDots(int i, int j) {
@@ -81,6 +76,18 @@ public class DotGroup {
         return tt;
     }
 
+    public Rectangle makeBoundingRectangle(double margin){
+        Rectangle rect = new Rectangle();
+        rect.xProperty().bind(xProperty().subtract(margin));
+        rect.yProperty().bind(yProperty().subtract(margin));
+        rect.widthProperty().bind(widthProperty().add(2*margin));
+        rect.heightProperty().bind(heightProperty().add(2*margin));
+        return rect;
+    }
+
+    public ArrayList<Dot> getDots() {
+        return dots;
+    }
 
     public double getX() {
         return x.get();

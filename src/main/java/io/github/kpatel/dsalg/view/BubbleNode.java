@@ -34,18 +34,12 @@ public class BubbleNode extends StackPane {
         return fill;
     }
 
-    public Transition flipDown(){
+
+    public Transition flip(boolean flippedUp){
         FillTransition ct = new FillTransition(Duration.seconds(1),getCircle());
         FadeTransition tt = new FadeTransition(Duration.seconds(1),getText());
-        ct.setToValue(Color.BLACK);
-        tt.setToValue(0.0);
-        return new ParallelTransition(ct,tt);
-    }
-    public Transition flipUp(){
-        FillTransition ct = new FillTransition(Duration.seconds(1),getCircle());
-        FadeTransition tt = new FadeTransition(Duration.seconds(1),getText());
-        ct.setToValue(getFill());
-        tt.setToValue(1.0);
+        ct.setToValue(flippedUp ? getFill():Color.BLACK);
+        tt.setToValue(flippedUp ? 1.0:0.0);
         return new ParallelTransition(ct,tt);
     }
 }

@@ -1,7 +1,7 @@
 package io.github.kpatel.dsalg.doc.adt;
 
 import io.github.kpatel.dsalg.doc.Demonstration;
-import io.github.kpatel.dsalg.view.ArrowMarker;
+import io.github.kpatel.dsalg.view.BubbleMarker;
 import io.github.kpatel.dsalg.view.BubbleNode;
 import io.github.kpatel.dsalg.view.video.animate.prims.DotGroup;
 import io.github.kpatel.dsalg.view.video.animate.prims.DotGroupFactory;
@@ -37,7 +37,7 @@ public class AbstractTreeDemonstration extends Demonstration {
         //Markers
         HashMap<String, Node> markers = new HashMap<>();
         for(String name : markerNames)
-            markers.put(name,new ArrowMarker());
+            markers.put(name,new BubbleMarker());
         animationPane.getChildren().addAll(markers.values());
 
         //Positioning
@@ -59,8 +59,8 @@ public class AbstractTreeDemonstration extends Demonstration {
                 DeltaSwap swap = (DeltaSwap) delta;
                 transition = Optional.of(linearDotGroup.swapDots(
                         swap.getLeft(), swap.getRight()));
-            }else if(delta instanceof DeltaMoveMarker){
-                DeltaMoveMarker moveMarker = (DeltaMoveMarker) delta;
+            }else if(delta instanceof DeltaMarker){
+                DeltaMarker moveMarker = (DeltaMarker) delta;
                 transition = Optional.of(linearDotGroup.moveMarker(
                         markers.get(moveMarker.getName()),moveMarker.getTarget(),15,-20));
             }

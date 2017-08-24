@@ -1,9 +1,6 @@
 package io.github.kpatel.dsalg.model.search;
 
-import io.github.kpatel.dsalg.model.util.Delta;
-import io.github.kpatel.dsalg.model.util.DeltaMoveMarker;
-import io.github.kpatel.dsalg.model.util.DeltaSuccess;
-import io.github.kpatel.dsalg.model.util.Generator;
+import io.github.kpatel.dsalg.model.util.*;
 
 import java.util.List;
 
@@ -17,8 +14,10 @@ public class LinearSearch<E> extends Generator<Delta> {
 
     @Override
     protected void apply() {
+        push(new DeltaStart());
         for(int i = 0; i < list.size(); i++){
-            push(new DeltaMoveMarker("Needle",i));
+            push(new DeltaMarker("Sequence",i,"Needle"));
+            push(new DeltaFlip("Sequence",i,true));
             if(list.get(i).equals(target)){
                 push(new DeltaSuccess(true));
                 return;
