@@ -2,23 +2,14 @@ package io.github.kpatel.dsalg.doc.alg.sort;
 
 import io.github.kpatel.dsalg.doc.Demonstration;
 import io.github.kpatel.dsalg.model.sort.InsertionSort;
-import io.github.kpatel.dsalg.model.sort.SelectionSort;
-import io.github.kpatel.dsalg.model.util.Delta;
-import io.github.kpatel.dsalg.model.util.DeltaMarker;
-import io.github.kpatel.dsalg.model.util.DeltaSwap;
-import io.github.kpatel.dsalg.view.BubbleMarker;
-import io.github.kpatel.dsalg.view.BubbleNode;
-import io.github.kpatel.dsalg.view.video.animate.prims.DotGroup;
-import io.github.kpatel.dsalg.view.video.animate.prims.DotGroupFactory;
-import io.github.kpatel.dsalg.view.video.animate.prims.DotPool;
+import io.github.kpatel.dsalg.view.controls.BubbleMarker;
+import io.github.kpatel.dsalg.view.controls.BubbleRecord;
+import io.github.kpatel.dsalg.model.DotGroupFactory;
+import io.github.kpatel.dsalg.model.DotPool;
 import javafx.animation.Animation;
-import javafx.animation.SequentialTransition;
-import javafx.animation.Transition;
-import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Optional;
 import java.util.Random;
 
@@ -34,29 +25,26 @@ public class InsertionSortDemonstration extends Demonstration {
 
     @Override
     public Animation makeAnimation(Pane animationPane) {
-        //Model
-        Random random = new Random();
-        ArrayList<Integer> dataModel = new ArrayList<>(DATA_SIZE);
-        for (int i = 0; i < DATA_SIZE; i++)
-            dataModel.add(i, random.nextInt(MAX_VALUE-MIN_VALUE)+MIN_VALUE);
-
         DotPool dotPool = new DotPool();
 
-        //Positioning
-        DotGroup dotGroup = DotGroupFactory.makeHorizontalGroup(
-                animationPane, 0.1, 0.5, 0.8, 0.0, DATA_SIZE);
+        //Model
+        int value;
+        Random random = new Random();
+        ArrayList<Integer> dataModel = new ArrayList<>(DATA_SIZE);
+        dotPool.getDotGroups().put("Sequence", DotGroupFactory.makeHorizontalGroup(
+                animationPane, 0.1, 0.5, 0.8, 0.0, DATA_SIZE));
         for (int i = 0; i < DATA_SIZE; i++) {
-            BubbleNode bubbleNode = new BubbleNode(dataModel.get(i),true);
-            dotGroup.getDots().get(i).setNode(Optional.of(bubbleNode));
-            animationPane.getChildren().add(bubbleNode);
+            value = random.nextInt(MAX_VALUE - MIN_VALUE) + MIN_VALUE;
+            dataModel.add(i, value);
+            BubbleRecord bubbleRecord = new BubbleRecord(value,MAX_VALUE,false);
+            dotPool.getDot("Sequence",i).setNode(Optional.of(bubbleRecord));
+            animationPane.getChildren().add(bubbleRecord);
         }
-        dotPool.getDotGroups().put("Sequence",dotGroup);
 
         //Markers
         for(String name : markerNames)
             dotPool.getMarkers().put(name,new BubbleMarker());
         animationPane.getChildren().addAll(dotPool.getMarkers().values());
-
 
         return dotPool.applyDeltas(new InsertionSort<>(dataModel));
     }

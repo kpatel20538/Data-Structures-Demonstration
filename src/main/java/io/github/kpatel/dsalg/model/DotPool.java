@@ -1,15 +1,10 @@
-package io.github.kpatel.dsalg.view.video.animate.prims;
+package io.github.kpatel.dsalg.model;
 
-import io.github.kpatel.dsalg.model.sort.BubbleSort;
-import io.github.kpatel.dsalg.model.sort.SelectionSort;
-import io.github.kpatel.dsalg.model.util.*;
-import io.github.kpatel.dsalg.view.BubbleNode;
+import io.github.kpatel.dsalg.view.controls.BubbleRecord;
 import javafx.animation.*;
 import javafx.scene.Node;
 import javafx.util.Duration;
-import javafx.util.Pair;
 
-import javax.naming.OperationNotSupportedException;
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -35,7 +30,7 @@ public class DotPool {
         return markers;
     }
 
-    public Transition applyDeltas(Generator<Delta> procedure){
+    public Transition applyDeltas(Iterable<Delta> procedure){
         SequentialTransition sequentialTransition = new SequentialTransition(this.fadeIn());
         Transition preTransition;
         Transition transition;
@@ -56,16 +51,14 @@ public class DotPool {
                 transition= new PauseTransition(Duration.ZERO);
             } else if (delta instanceof DeltaFlip){
                 DeltaFlip flip = (DeltaFlip) delta;
-                transition = getDotGroups()
-                        .get(flip.getGroup())
-                        .getDots()
-                        .get(flip.getIdx())
-                        .getNode()
-                        .filter(n -> n instanceof BubbleNode)
-                        .map(n -> ((BubbleNode) n).flip(flip.isFlippedUp()))
-                        .orElse(DotPool.defaultInterceptor(this,delta));
-            } else {
-                transition = DotPool.defaultInterceptor(this,delta);
+                Optional<Node> node = getDot(flip.getGroup(),flip.getIdx()).getNode();
+                transition = node.isPresent() && node.get() instanceof BubbleRecord ?
+                        ((BubbleRecord) node.get()).setFlip(flip.isFlippedUp()) :
+                        new PauseTransition(Duration.ZERO);
+            } else if (delta instanceof DeltaWait){
+                transition= new PauseTransition(((DeltaWait) delta).getDuration());
+            } else{
+                transition = new PauseTransition(Duration.ZERO);
             }
             postTransition = postInterceptor.onIntercept(this,delta);
             sequentialTransition.getChildren().addAll(preTransition,transition,postTransition);
@@ -74,8 +67,8 @@ public class DotPool {
     }
 
     public Transition swapDots(String src, String target,int srcIdx, int targetIdx) {
-        Dot left = getDotGroups().get(src).getDots().get(srcIdx);
-        Dot right = getDotGroups().get(target).getDots().get(targetIdx);
+        Dot left = getDot(src,srcIdx);
+        Dot right = getDot(target,targetIdx);
         Transition ltt = left.getNode().map(node -> {
             TranslateTransition tt = new TranslateTransition(TIME_STEP, node);
             tt.fromXProperty().bind(left.xProperty());
@@ -109,11 +102,19 @@ public class DotPool {
     }
 
     public Transition moveToDot(String group, int i,double xOffset,double yOffset, Node node){
-        TranslateTransition tt = new TranslateTransition(Duration.seconds(1), node);
-        Dot dot = getDotGroups().get(group).getDots().get(i);
+        TranslateTransition tt = new TranslateTransition(TIME_STEP, node);
+        Dot dot = getDot(group,i);
         tt.toXProperty().bind(dot.xProperty().add(xOffset));
         tt.toYProperty().bind(dot.yProperty().add(yOffset));
         return tt;
+    }
+
+    public Dot getDot(String group, int idx) {
+        return getDotGroups().get(group).getDots().get(idx);
+    }
+
+    public Dot addDot(String group, double x, double y){
+        return getDotGroups().get(group).addDot(x,y);
     }
 
     public DeltaEventListener getPreInterceptor() {

@@ -1,6 +1,6 @@
 package io.github.kpatel.dsalg.model.search;
 
-import io.github.kpatel.dsalg.model.util.*;
+import io.github.kpatel.dsalg.model.*;
 
 import java.util.List;
 

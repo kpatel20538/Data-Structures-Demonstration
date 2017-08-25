@@ -1,4 +1,4 @@
-package io.github.kpatel.dsalg.view;
+package io.github.kpatel.dsalg.view.controls;
 
 import javafx.scene.Group;
 

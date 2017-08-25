@@ -1,14 +1,20 @@
 package io.github.kpatel.dsalg.doc;
 
-import io.github.kpatel.dsalg.view.video.animate.builder.TranslateBuilder;
+import io.github.kpatel.dsalg.model.Delta;
+import io.github.kpatel.dsalg.model.DeltaSwap;
+import io.github.kpatel.dsalg.model.DeltaWait;
+import io.github.kpatel.dsalg.model.Dot;
+import io.github.kpatel.dsalg.model.DotGroup;
+import io.github.kpatel.dsalg.model.DotPool;
 import javafx.animation.Animation;
-import javafx.animation.ParallelTransition;
-import javafx.animation.TranslateTransition;
 import javafx.scene.control.TreeItem;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+
+import java.util.ArrayList;
+import java.util.Optional;
 
 public class IntroductionDemonstration extends Demonstration {
     public IntroductionDemonstration() {
@@ -30,26 +36,24 @@ public class IntroductionDemonstration extends Demonstration {
 
     @Override
     public Animation makeAnimation(Pane animationPane) {
-        Text topText = new Text("Data Structure &");
-        Text bottomText = new Text("Algorithms");
+        Text topText = new Text("Algorithms");
+        Text andText = new Text("&");
+        Text bottomText = new Text("Data Structures");
         topText.setFont(Font.font(36));
+        andText.setFont(Font.font(36));
         bottomText.setFont(Font.font(36));
-        animationPane.getChildren().addAll(topText, bottomText);
+        animationPane.getChildren().addAll(topText, andText, bottomText);
 
-        return new ParallelTransition(
-                new TranslateBuilder(animationPane)
-                        .setNode(topText)
-                        .setDuration(Duration.seconds(6))
-                        .from(TranslateBuilder.Offscreen.LEFT, 0.25)
-                        .to(TranslateBuilder.Offscreen.RIGHT, 0.25)
-                        .build(),
-                new TranslateBuilder(animationPane)
-                        .setNode(bottomText)
-                        .setDelay(Duration.seconds(2))
-                        .setDuration(Duration.seconds(6))
-                        .from(TranslateBuilder.Offscreen.RIGHT, 0.75)
-                        .to(TranslateBuilder.Offscreen.LEFT, 0.75)
-                        .build()
-        );
+        DotPool dotPool = new DotPool();
+        dotPool.getDotGroups().put("KeyPoints",new DotGroup(animationPane,0.1,0.1,0.8,0.8));
+        dotPool.addDot("KeyPoints",0.0,0.25).setNode(topText);
+        dotPool.addDot("KeyPoints",0.0,0.75).setNode(andText);
+        dotPool.addDot("KeyPoints",0.1,0.75).setNode(bottomText);
+
+        ArrayList<Delta> deltas = new ArrayList<>();
+        for(int i = 0; i < 3; i++)
+            deltas.add(new DeltaSwap("KeyPoints",0,2));
+        deltas.add(new DeltaWait(Duration.seconds(4)));
+        return dotPool.applyDeltas(deltas);
     }
 }

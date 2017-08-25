@@ -1,4 +1,4 @@
-package io.github.kpatel.dsalg.view.video.animate.prims;
+package io.github.kpatel.dsalg.model;
 
 import javafx.animation.ParallelTransition;
 import javafx.animation.PauseTransition;
@@ -83,6 +83,12 @@ public class DotGroup {
         rect.widthProperty().bind(widthProperty().add(2*margin));
         rect.heightProperty().bind(heightProperty().add(2*margin));
         return rect;
+    }
+
+    public Dot addDot(double x,double y){
+        Dot dot = new Dot(this,x,y);
+        getDots().add(dot);
+        return dot;
     }
 
     public ArrayList<Dot> getDots() {

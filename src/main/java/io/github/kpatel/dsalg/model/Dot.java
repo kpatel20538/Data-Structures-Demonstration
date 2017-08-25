@@ -1,4 +1,4 @@
-package io.github.kpatel.dsalg.view.video.animate.prims;
+package io.github.kpatel.dsalg.model;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -26,6 +26,10 @@ public class Dot {
         this.x.bind(dotGroup.xProperty().add(dotGroup.widthProperty().multiply(x)));
         this.y.bind(dotGroup.yProperty().add(dotGroup.heightProperty().multiply(y)));
         this.nodeOptional = Optional.empty();
+    }
+
+    public Optional<Node> setNode(Node node) {
+        return setNode(Optional.ofNullable(node));
     }
 
     public Optional<Node> setNode(Optional<Node> nodeOptional) {

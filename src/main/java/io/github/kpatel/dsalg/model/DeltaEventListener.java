@@ -1,6 +1,5 @@
-package io.github.kpatel.dsalg.view.video.animate.prims;
+package io.github.kpatel.dsalg.model;
 
-import io.github.kpatel.dsalg.model.util.Delta;
 import javafx.animation.Transition;
 
 public interface DeltaEventListener {

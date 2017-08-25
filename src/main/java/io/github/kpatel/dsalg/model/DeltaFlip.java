@@ -1,4 +1,4 @@
-package io.github.kpatel.dsalg.model.util;
+package io.github.kpatel.dsalg.model;
 
 public class DeltaFlip extends Delta {
     private final String group;

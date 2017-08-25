@@ -1,4 +1,4 @@
-package io.github.kpatel.dsalg.model.util;
+package io.github.kpatel.dsalg.model;
 
 public class DeltaSuccess extends Delta {
     private boolean success;

@@ -1,4 +1,4 @@
-package io.github.kpatel.dsalg.view;
+package io.github.kpatel.dsalg.view.controls;
 
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;

@@ -1,22 +1,20 @@
-package io.github.kpatel.dsalg.model.util;
+package io.github.kpatel.dsalg.model;
 
-public class DeltaArrow extends Delta {
+public class DeltaSwap extends Delta {
     private final String srcGroup;
     private final String targetGroup;
     private final int srcIdx;
     private final int targetIdx;
-    private final boolean visible;
 
-    public DeltaArrow(String group, int srcIdx, int targetIdx,boolean visible) {
-        this(group,group,srcIdx,targetIdx,visible);
+    public DeltaSwap(String group, int srcIdx, int targetIdx) {
+        this(group,group,srcIdx,targetIdx);
     }
 
-    public DeltaArrow(String srcGroup, String targetGroup, int srcIdx, int targetIdx,boolean visible) {
+    public DeltaSwap(String srcGroup, String targetGroup, int srcIdx, int targetIdx) {
         this.srcGroup = srcGroup;
         this.targetGroup = targetGroup;
         this.srcIdx = srcIdx;
         this.targetIdx = targetIdx;
-        this.visible = visible;
     }
 
     public String getSrcGroup() {
@@ -33,9 +31,5 @@ public class DeltaArrow extends Delta {
 
     public int getTargetIdx() {
         return targetIdx;
-    }
-
-    public boolean getVisible() {
-        return visible;
     }
 }

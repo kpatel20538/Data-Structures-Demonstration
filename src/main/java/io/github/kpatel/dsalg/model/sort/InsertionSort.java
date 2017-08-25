@@ -1,6 +1,6 @@
 package io.github.kpatel.dsalg.model.sort;
 
-import io.github.kpatel.dsalg.model.util.*;
+import io.github.kpatel.dsalg.model.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -18,9 +18,11 @@ public class InsertionSort<E extends Comparable<E>> extends Generator<Delta> {
         for (int i = 1; i < list.size(); i++) {
             push(new DeltaMarker("Sequence", i,"Limit"));
             push(new DeltaMarker("Sequence", i-1,"Window"));
+            push(new DeltaFlip("Sequence", i-1,true));
             for (int j = i; j > 0 && list.get(j - 1).compareTo(list.get(j)) == 1; j--) {
                 Collections.swap(list, j - 1, j);
                 push(new DeltaMarker("Sequence", j-1,"Window"));
+                push(new DeltaFlip("Sequence", j-1,true));
                 push(new DeltaSwap("Sequence",j - 1, j));
             }
         }

@@ -1,4 +1,4 @@
-package io.github.kpatel.dsalg.model.util;
+package io.github.kpatel.dsalg.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
